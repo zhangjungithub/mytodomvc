@@ -1,0 +1,50 @@
+<h2 class="page-header">{{title}}</h2>
+<h3 ng-if="message">{{message}}</h3>
+<!--这里不用再写控制器，因为路由已经好了-->
+<div class="list-group" ng-repeat="item in subjects">
+    <a class="list-group-item"  href="#/movie_detail/{{item.id}}" >
+        <!--<h4>{{start+1+}}</h4>-->
+        <span class="badge">{{item.rating.average}}</span>
+        <div class="media">
+            <div class="media-left" href="#">
+                <img alt="{{item.title}}" ng-src="{{item.images.small}}">
+            </div>
+            <div class="media-body">
+                <h4 class="media-heading">{{item.title}}</h4>
+                <p>导演：
+                    <span ng-repeat="director in item.directors">
+                        <!--{{director.name + ($last ? '' : '、')}}-->
+                        {{director.name }}{{($last ? '' : '、')}}
+                    </span>
+                </p>
+                <!--<p>类型：{{item.genres.toString()}}</p>  这是一种巧妙的方法-->
+                <p>类型：{{item.genres.join('、')}}</p>
+                <p>演员：
+                    <span ng-repeat="cast in item.casts">
+                        {{cast.name}}
+                         <span ng-show="!$last">、</span>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </a>
+</div>
+<div ng-if="totalNum">
+    <span  class="col-xs-6 col-md-4">总共{{totalNum}}条记录，共{{currentPage}}/{{totalpages}}页</span>
+    <nav class="col-xs-6 col-md-4">
+        <ul class="pager">
+            <li><a ng-click="goPage(1)">首页</a></li>
+            <li ng-class="{disabled : currentPage<=1}">
+                <a ng-click="goPage(currentPage-1)">上一页</a>
+            </li>
+            <li ng-class="{disabled : currentPage>=totalpages}">
+                <a ng-click="goPage(currentPage+1)">下一页</a>
+            </li>
+            <li><a ng-click="goPage(totalpages)">末页</a></li>
+        </ul>
+    </nav>
+</div>
+<div class="spinner" ng-if="!totalNum">
+    <div class="dot1"></div>
+    <div class="dot2"></div>
+</div>

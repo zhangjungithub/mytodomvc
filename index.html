@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <title>电影02</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<!--导航-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">张军的Movie Cat02</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+    <li><a href="#">登录</a></li>
+    <li><a href="#">注册</a></li>
+    </ul>
+  </div>
+
+</nav>
+<!--选项卡-->
+<div class="container-fluid" ng-controller="IndexController">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <!--路由-->
+      <ul class="nav nav-sidebar">
+        <li ng-class="{active:type=='in_theaters'}">
+          <a auto="active" href="#/in_theaters/1">正在热映</a>
+        </li>
+        <li ng-class="{active:type=='coming_soon'}">
+          <a auto="active" href="#/coming_soon/1">即将上映</a>
+        </li>
+        <li ng-class="{active:type=='top250'}">
+          <a auto="active" href="#/top250/1">TOP250</a>
+        </li>
+      </ul>
+      <!--搜索-->
+      <ul class="nav nav-sidebar" ng-controller="SearchController">
+        <li>
+          <form name="search_form">
+            <div class="input-group">
+              <input type="search" class="form-control" ng-model="content">
+              <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" ng-click="SearchMovie()">Go!</button>
+              </div>
+            </div>
+            <!-- /input-group -->
+          </form>
+        </li>
+      </ul>
+    </div>
+    <!--ng-view用于渲染,就是用于存放其他模块的页面片段-->
+    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
+  </div>
+</div>
+
+<!--  引入框架-->
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<!--<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>-->
+<!--  引入我的js-->
+<script src="app.js"></script>
+<script src="components/http.js"></script>
+<script src="movie_list/controller.js"></script>
+<script src="movie_detail/controller.js"></script>
+
+<!--<script src="in_theaters/controller.js"></script>
+<script src="coming_soon/controller.js"></script>
+<script src="top250/controller.js"></script>-->
+</body>
+</html>
